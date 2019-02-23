@@ -8,15 +8,15 @@
         <th>ACCIONES</th>
     </thead>
     <tbody>
-         <tr *ngFor="let row of listaProductos">
-             <td>{{row.id}}</td>
-             <td>{{row.nombre}}</td>
-             <td>{{row.detalle}}</td>            
-             <td><img [src]="row.urlImg"></td>
+         <tr *ngFor="let producto of listaProductos">
+             <td>{{producto.id}}</td>
+             <td>{{producto.nombre}}</td>
+             <td>{{producto.detalle}}</td>            
+             <td><img [src]="producto.urlImg"></td>
              <td> 
-              <button class="button is-link" (click)="handleDisable(row)">{{row.activo?'Habilitado':'Deshabilitado'}}</button>
-              <button [disabled]="!row.activo" class="button is-info">Actualizar</button>
-              <button [disabled]="!row.activo" class="button is-danger" (click)="handleDelete(row)">Eliminar</button>               
+              <button [disabled]="!producto.activo" class="button is-info" (click)="handleEdit(producto)">Actualizar</button>
+              <button class="button is-link" (click)="handleDisable(producto)">{{producto.activo?'Habilitado':'Deshabilitado'}}</button>             
+              <button [disabled]="!producto.activo" class="button is-danger" (click)="handleDelete(producto)">Eliminar</button>               
           </td>
      </tr>
     </tbody>
