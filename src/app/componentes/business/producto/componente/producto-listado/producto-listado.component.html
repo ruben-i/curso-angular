@@ -1,0 +1,26 @@
+<div>
+  <table class="table is-striped">
+    <thead>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCION</th>
+        <th>IMAGEN</th>
+        <th>ACCIONES</th>
+    </thead>
+    <tbody>
+         <tr *ngFor="let row of listaProductos">
+             <td>{{row.id}}</td>
+             <td>{{row.nombre}}</td>
+             <td>{{row.detalle}}</td>            
+             <td><img [src]="row.urlImg"></td>
+             <td> 
+              <button class="button is-link" (click)="handleDisable(row)">{{row.activo?'Habilitado':'Deshabilitado'}}</button>
+              <button [disabled]="!row.activo" class="button is-info">Actualizar</button>
+              <button [disabled]="!row.activo" class="button is-danger" (click)="handleDelete(row)">Eliminar</button>               
+          </td>
+     </tr>
+    </tbody>
+</table>
+
+
+</div>

@@ -1,0 +1,8 @@
+<div>
+    <app-producto-busqueda></app-producto-busqueda>
+    <app-producto-listado 
+        [listaProductos]="productos" 
+        (deleteProducto)="deleteProducto($event)"
+        (disableProducto)="disableProducto($event)">
+    </app-producto-listado>
+</div>

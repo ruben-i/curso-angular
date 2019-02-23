@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+.contenido{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.footer {
+    position: absolute;
+    width: 80%;
+    bottom: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+  }
