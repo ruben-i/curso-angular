@@ -1,14 +1,44 @@
-<div>
-    <label class="label">Nombre:</label>
-    <input type="text" name="nombre" class="input">
-    <label class="label">Detalle:</label>
-    <textarea name="detalle" class="input" rows="100"></textarea>
-    <label class="label">Precio:</label>
-    <input type="text" name="precio" class="input"/>
-    <label class="label">Activo</label>
-    <div>
-        <input type="radio" name="activo" value="true"> Activo<br>
-        <input type="radio" name="activo" value="false"> Deactivo<br>
+<div *ngIf="producto">
+    <div class="field">
+        <label class="label" [class.is-invalid]="_nombre.invalid && _nombre.touched" >{{_nombre.invalid && _nombre.touched ?'Ingrese un nombre valiado':'nombre:'}}</label>
+        <input type="text" name="nombre" 
+        class="input" 
+        [(ngModel)]="producto.nombre" 
+        #_nombre="ngModel"
+        minlength="10"
+        maxlength="20">
+      {{_nombre.erros | json}}
     </div>
-    <button class="button is-link">Guardar</button>
+
+    <div class="field">
+        <label class="label" [class.is-invalid]="_detalle.invalid && _detalle.touched" >{{_detalle.invalid && _detalle.touched ?'Ingrese un detalle valido':'Detalle:'}}</label>
+        <textarea name="detalle" 
+        class="textarea"  
+        [(ngModel)]="producto.detalle"
+        #_detalle="ngModel"
+        minlength="20"
+        maxlength="60"
+        ></textarea>
+    </div>
+
+    <div class="field">
+        <label class="label" [class.is-invalid]="_precio.invalid && _precio.touched" >{{_precio.invalid && _precio.touched ?'Ingrese un precio valido':'Precio:'}}</label>
+        <input type="text" name="precio" class="input" 
+        [(ngModel)]="producto.precio"
+        #_precio="ngModel"
+        required
+        />
+        {{_precio.invalid | json}}
+    </div>
+
+    <div class="field">
+        <label class="label">Activo</label>
+        <div>
+            <input type="radio" name="activo" value="true"> Activo<br>
+            <input type="radio" name="activo" value="false"> Deactivo<br>
+        </div>
+    </div>
+
+    <button class="button is-link" (click)="onSubmit()">Guardar</button>
+    
 </div>

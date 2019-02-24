@@ -10,37 +10,29 @@ import {Observable} from 'rxjs';
 })
 export class ProductoComponent implements OnInit {
   productos:ProductoModel[];
-  observer:Observable<ProductoModel[]>;
   constructor(private servicio:ProductoService) {
 
    }
 
   ngOnInit() {
-    this.observer=this.servicio.getProductos();
-    
-    this.observer.subscribe(response => {
-      this.productos=response.map(item =>{ 
-          return new ProductoModel(
-            item.id,
-            item.nombre,
-            item.detalle,
-            item.urlImg,
-            item.activo,
-            item.precio
-            )}
-      );//fin map
-     
-  });//fin suscribe
-
+   this.listarProducto();
   }//fin init
 
   deleteProducto(producto:ProductoModel){
     console.log('Eliminar',producto);
-    this.productos=this.productos.filter(p =>p.id!=producto.id);
+    //this.productos=this.productos.filter(p =>p.id!=producto.id);
+    this.servicio.deleteProduct(producto).subscribe(response =>console.log(response));
+    this.ngOnInit();
   }
 
   disableProducto(producto:ProductoModel){
     console.log('deshabilitar',producto);
     producto.activo=!producto.activo;
   }
+
+  private listarProducto(){
+    this.servicio.getProductos().subscribe((data:ProductoModel[])=>this.productos=data);
+   
+  }
+
 }

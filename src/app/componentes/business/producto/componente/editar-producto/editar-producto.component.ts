@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductoModel } from '../../modelo/producto.model';
+import { ProductoService } from 'src/app/servicios/producto.service';
 
 @Component({
   selector: 'app-editar-producto',
@@ -7,12 +9,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./editar-producto.component.css']
 })
 export class EditarProductoComponent implements OnInit {
-  id:string;
-  constructor(private route:ActivatedRoute) { }
+
+  productoEdit:ProductoModel;
+
+  constructor(private router:Router,private route:ActivatedRoute,private servicio:ProductoService) { }
 
   ngOnInit() {
-    this.id=this.route.snapshot.paramMap.get('id');
-    console.log('id',this.id);
+    console.log('id',this.route.snapshot.paramMap.get('id'));
+    this.servicio.getProductById(+this.route.snapshot.paramMap.get('id')).subscribe((data:ProductoModel)=>this.productoEdit=data);
+    
+    console.log('producto ',this.productoEdit);
   }
 
+  handleSubmit(){
+    this.servicio.updateProduct(this.productoEdit).subscribe(data =>console.log('actualizar',data));
+    this.router.navigate(['/producto']);
+  }
 }
